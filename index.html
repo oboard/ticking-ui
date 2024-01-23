@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticking UI Example</title>
+  <link rel="stylesheet" href="/src/main.css" />
+</head>
+
+<body style="margin: 0;">
+  <div class="ticking-ui" style="width:100vw;height:100vh;">
+    <stack>
+      <script>
+        var clockArcStart = -90 + time() / 10000 % 360 + (scheduledTime() - time() + startTime() + pauseTotalTime()) / 10000 % 360
+        var isTomato = (type() == 2) ? "false" : "true"
+      </script>
+      <color :value='primaryColor()'></color>
+      <color>#44000000</color>
+      <safe>
+        <column mainAxisAlignment='spaceBetween'>
+          <column :if='!isTablet()'>
+            <sizedBox height='48'></sizedBox>
+            <row mainAxisAlignment='end'>
+              <animation duration='500'>
+                <text size='24' color='#FFFFFF' :content='now()'></text>
+              </animation>
+              <sizedBox width='16'></sizedBox>
+            </row>
+          </column>
+          <flex mainAxisAlignment='spaceAround' :direction='width()>height()?"horizontal":"vertical"'>
+            <stack alignment='center'>
+              <container shape='circle' color='#55FFFFFF'>
+                <square :dimension='screenWidth()*0.7'></square>
+              </container>
+              <container shape='circle' color='#FFFFFF'>
+                <square :dimension='screenWidth()*0.6'></square>
+              </container>
+
+              <animation duration='100'>
+                <stack alignment='center'>
+                  <rotate :angle='time()/1000*6%360' alignment='center'>
+                    <column>
+                      <container color='#ff0000' :height='screenWidth()*0.2' width='2'>
+                      </container>
+                      <sizedBox :height='screenWidth()*0.2'>
+                      </sizedBox>
+                    </column>
+                  </rotate>
+                  <opacity opacity='0.3' :if='isTomato'>
+                    <arcClipper :start='-90+time()/10000%360'
+                      :sweep='(scheduledTime()-time()+startTime()+pauseTotalTime())/10000%360'>
+                      <border shape='circle' :color='primaryColor()' width='24'>
+                        <square :dimension='screenWidth()*0.6'></square>
+                      </border>
+                    </arcClipper>
+                  </opacity>
+
+                  <opacity opacity='0.5' :if='isTomato'>
+                    <stack alignment='center'>
+                      <arcClipper :start='-90+startTime()/10000%360' sweep='0.5'>
+                        <border width='24' shape='circle' :color='primaryColor()'>
+                          <square :dimension='screenWidth()*0.6'></square>
+                        </border>
+                      </arcClipper>
+                      <arcClipper :start='clockArcStart' sweep='0.5'>
+                        <border width='24' shape='circle' :color='primaryColor()'>
+                          <square :dimension='screenWidth()*0.6'></square>
+                        </border>
+                      </arcClipper>
+                      <arcClipper :start='-90+startTime()/10000%360'
+                        :sweep='(scheduledTime()+pauseTotalTime())/10000%360'>
+                        <border shape='circle' :color='primaryColor()' width='1'>
+                          <square :dimension='screenWidth()*0.6-47'></square>
+                        </border>
+                      </arcClipper>
+                      <arcClipper :start='-90+startTime()/10000%360'
+                        :sweep='(scheduledTime()+pauseTotalTime())/10000%360'>
+                        <border shape='circle' :color='primaryColor()' width='1'>
+                          <square :dimension='screenWidth()*0.6+1'></square>
+                        </border>
+                      </arcClipper>
+                    </stack>
+                  </opacity>
+                </stack>
+              </animation>
+
+
+              <container width='16' height='16' shape='circle' color='#000000'>
+              </container>
+
+              <rotate :angle='-120+time()/120000%360' alignment='center'>
+                <column>
+                  <container color='#000000' :height='screenWidth()*0.15' width='8'>
+                  </container>
+                  <sizedBox :height='screenWidth()*0.15'>
+                  </sizedBox>
+                </column>
+              </rotate>
+              <rotate :angle='time()/10000%360' alignment='center'>
+                <column>
+                  <container color='#000000' :height='screenWidth()*0.17' width='4'>
+                  </container>
+                  <sizedBox :height='screenWidth()*0.17'>
+                  </sizedBox>
+                </column>
+              </rotate>
+
+              <arcClipper start='-4' sweep='8'>
+                <border width='15' shape='circle' color='#000000'>
+                  <square :dimension='screenWidth()*0.6'></square>
+                </border>
+              </arcClipper>
+              <arcClipper start='-94' sweep='8'>
+                <border width='15' shape='circle' color='#000000'>
+                  <square :dimension='screenWidth()*0.6'></square>
+                </border>
+              </arcClipper>
+              <arcClipper start='176' sweep='8'>
+                <border width='15' shape='circle' color='#000000'>
+                  <square :dimension='screenWidth()*0.6'></square>
+                </border>
+              </arcClipper>
+              <arcClipper start='86' sweep='8'>
+                <border width='15' shape='circle' color='#000000'>
+                  <square :dimension='screenWidth()*0.6'></square>
+                </border>
+              </arcClipper>
+              <column>
+                <square :dimension='screenWidth()*0.4'></square>
+                <animation duration='500'>
+                  <text size='16' color='#000000' :content='timeText()'></text>
+                </animation>
+              </column>
+            </stack>
+            <padding top='16'>
+              <NameEditBar></NameEditBar>
+            </padding>
+          </flex>
+          <column>
+            <ToolBarSimple></ToolBarSimple>
+          </column>
+        </column>
+      </safe>
+    </stack>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
