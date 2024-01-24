@@ -28,7 +28,10 @@ function htmlDecode(value: string) {
 }
 
 // loop through all elements
-export function build(parent: HTMLElement) {
+export function build(parent: HTMLElement | string) {
+  if (typeof parent == "string") {
+    parent = document.querySelector(parent) as HTMLElement;
+  }
   // get all attributes
   const attributes = parent.attributes;
 
@@ -101,27 +104,6 @@ export function build(parent: HTMLElement) {
     build(child as HTMLElement);
   }
   // changeTagName(parent, "div");
-}
-
-function changeTagName(element: HTMLElement, newTagName: string) {
-  // 创建新的元素
-  var newElement = document.createElement(newTagName);
-
-  // 复制旧元素的属性
-  for (var i = 0; i < element.attributes.length; i++) {
-    newElement.setAttribute(
-      element.attributes[i].name,
-      element.attributes[i].value
-    );
-  }
-
-  // 复制旧元素的子节点
-  while (element.firstChild) {
-    newElement.appendChild(element.firstChild);
-  }
-
-  // 替换旧元素
-  element.parentNode?.replaceChild(newElement, element);
 }
 
 for (const parent of tickingElements) {
