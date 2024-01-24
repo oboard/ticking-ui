@@ -17,6 +17,36 @@ function screenHeight() {
   return window.innerHeight;
 }
 
+function isTablet() {
+  return window.innerWidth > 600;
+}
+
+function htmlDecode(value: string) {
+  return String(value)
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#47;/g, "/")
+    .replace(/&#40;/g, "(")
+    .replace(/&#41;/g, ")")
+    .replace(/&#123;/g, "{")
+    .replace(/&#125;/g, "}")
+    .replace(/&#91;/g, "[")
+    .replace(/&#93;/g, "]")
+    .replace(/&#35;/g, "#")
+    .replace(/&#37;/g, "%")
+    .replace(/&#59;/g, ";")
+    .replace(/&#43;/g, "+")
+    .replace(/&#45;/g, "-")
+    .replace(/&#42;/g, "*")
+    .replace(/&#64;/g, "@")
+    .replace(/&#36;/g, "$")
+    .replace(/&#95;/g, "_");
+  // 添加更多实体字符的解码规则
+}
+
 // loop through all elements
 function build(parent: HTMLElement) {
   if (parent.tagName != "DIV") {
@@ -31,13 +61,34 @@ function build(parent: HTMLElement) {
     for (const attribute of attributes) {
       if (attribute.name.startsWith(":")) {
         const name = attribute.name.slice(1);
+
         let value = "";
+        console.log(`eval(${htmlDecode(attribute.value)})`);
         try {
-          value = eval(attribute.value);
-        } catch {}
+
+
+          // @ts-ignore
+          function width() {
+            return window.innerWidth;
+          }
+          // @ts-ignore
+          function height() {
+            return window.innerHeight;
+          }
+
+          value = eval(htmlDecode(attribute.value));
+          console.log(`eval(${htmlDecode(attribute.value)}) = ${value}`);
+        } catch (e) {
+          console.log(e);
+        }
         attributesMap[name] = value;
         parent.setAttribute(name, value);
       }
+    }
+
+    if (attributesMap["if"] == false) {
+      parent.style.setProperty("display", "none");
+      return;
     }
 
     const value = attributesMap["value"];
@@ -131,12 +182,12 @@ function build(parent: HTMLElement) {
         const start = attributesMap["start"];
         const sweep = attributesMap["sweep"];
 
-        const startAngle = (start ?? 0) / 180 * Math.PI;
-        const sweepAngle = (sweep ?? 0) / 180 * Math.PI;
+        const startAngle = ((start ?? 0) / 180) * Math.PI;
+        const sweepAngle = ((sweep ?? 0) / 180) * Math.PI;
 
         // 描绘出100个点，然后连接起来，使用clip-path，polygon
 
-        const points = ['50% 50%'];
+        const points = ["50% 50%"];
         const step = sweepAngle / 100;
         for (let i = 0; i <= 100; i++) {
           const angle = startAngle + step * i;
@@ -146,8 +197,6 @@ function build(parent: HTMLElement) {
         }
 
         parent.style.setProperty("clip-path", `polygon(${points.join(",")})`);
-
-
 
         break;
       case "scale":
@@ -251,9 +300,10 @@ function build(parent: HTMLElement) {
         //   clipBehavior: attributes['clipbehavior'] ?? Clip.none,
         //   children: children,
         // );
-
-        parent.style.setProperty("display", "flex");
-        parent.style.setProperty("flex-direction", direction ?? "row");
+        // parent.style.setProperty(
+        //   "flex-direction",
+        //   direction == "horizontal" ? "row" : "column" ?? "row"
+        // );
         break;
       case "border":
         parent.style.setProperty("border-width", (width ?? "0") + "px");
@@ -282,6 +332,15 @@ function build(parent: HTMLElement) {
         if (shadows) {
           parent.style.setProperty("box-shadow", shadows);
         }
+        if (width) {
+          parent.style.setProperty("width", width + "px");
+        }
+        if (height) {
+          parent.style.setProperty("height", height + "px");
+        }
+        break;
+      case "sizedbox":
+      case "size":
         if (width) {
           parent.style.setProperty("width", width + "px");
         }
