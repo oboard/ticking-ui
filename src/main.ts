@@ -65,8 +65,6 @@ function build(parent: HTMLElement) {
         let value = "";
         console.log(`eval(${htmlDecode(attribute.value)})`);
         try {
-
-
           // @ts-ignore
           function width() {
             return window.innerWidth;
@@ -138,34 +136,24 @@ function build(parent: HTMLElement) {
         break;
     }
 
-    switch (crossaxisalignment) {
-      case "start":
-        parent.style.setProperty("align-items", "flex-start");
-        break;
-      case "end":
-        parent.style.setProperty("align-items", "flex-end");
-        break;
-      case "center":
-        parent.style.setProperty("align-items", "center");
-        break;
-      case "stretch":
-        parent.style.setProperty("align-items", "stretch");
-        break;
-      case "baseline":
-        parent.style.setProperty("align-items", "baseline");
-        break;
-    }
-
     switch (parent.tagName.toLowerCase()) {
       case "padding":
         if (all) {
           parent.style.setProperty("padding", all);
           break;
         }
-        parent.style.setProperty("padding-top", top ?? "0px");
-        parent.style.setProperty("padding-right", right ?? "0px");
-        parent.style.setProperty("padding-bottom", bottom ?? "0px");
-        parent.style.setProperty("padding-left", left ?? "0px");
+        if (top) {
+          parent.style.setProperty("padding-top", top);
+        }
+        if (right) {
+          parent.style.setProperty("padding-right", right);
+        }
+        if (bottom) {
+          parent.style.setProperty("padding-bottom", bottom);
+        }
+        if (left) {
+          parent.style.setProperty("padding-left", left);
+        }
 
         break;
       case "color":
@@ -286,8 +274,8 @@ function build(parent: HTMLElement) {
         break;
       case "square":
         const size = attributesMap["size"] ?? attributesMap["dimension"];
-        parent.style.setProperty("width", size + "px");
-        parent.style.setProperty("height", size + "px");
+        parent.style.setProperty("width", size);
+        parent.style.setProperty("height", size);
         break;
       case "flex":
         // return Flex(
@@ -306,7 +294,7 @@ function build(parent: HTMLElement) {
         // );
         break;
       case "border":
-        parent.style.setProperty("border-width", (width ?? "0") + "px");
+        parent.style.setProperty("border-width", width ?? "0");
         parent.style.setProperty("border-color", color ?? "black");
         parent.style.setProperty("border-style", "solid");
         if (shape === "circle") {
@@ -324,7 +312,7 @@ function build(parent: HTMLElement) {
           parent.style.setProperty("border-radius", "50%");
         }
         if (borderradius) {
-          parent.style.setProperty("border-radius", borderradius + "px");
+          parent.style.setProperty("border-radius", borderradius);
         }
         if (color) {
           parent.style.setProperty("background-color", color);
@@ -333,19 +321,19 @@ function build(parent: HTMLElement) {
           parent.style.setProperty("box-shadow", shadows);
         }
         if (width) {
-          parent.style.setProperty("width", width + "px");
+          parent.style.setProperty("width", width);
         }
         if (height) {
-          parent.style.setProperty("height", height + "px");
+          parent.style.setProperty("height", height);
         }
         break;
       case "sizedbox":
       case "size":
         if (width) {
-          parent.style.setProperty("width", width + "px");
+          parent.style.setProperty("width", width);
         }
         if (height) {
-          parent.style.setProperty("height", height + "px");
+          parent.style.setProperty("height", height);
         }
         break;
       default:
