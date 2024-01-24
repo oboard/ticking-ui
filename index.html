@@ -14,8 +14,12 @@
 
 
 <stack>
+  <script>
+    let i = 1
+    
+  </script>
 
-  <column scrollable="true" inset="0">
+  <column  overflow-y="scroll" inset="0">
       dhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuver
       dhweuifhewufhjewuver
       dhweuifhewufhjewuver
@@ -279,13 +283,18 @@
       dhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuverdhweuifhewufhjewuver
   </column>
 
-    <column mainaxisalignment="start" width="100vw">
-      <box height="48px" color="#5555ff" shadows="#00000055 0 0 12px">
-        <row crossaxisalignment="center" mainaxisalignment="spaceBetween">
-          <padding left="16px" alignment="center">
-            <text>标题</text>
-          </padding>
-          <button><text>111</text></button>
+    <column align-items="start" width="100vw">
+      <box height="48px" background-color="#5555ff" box-shadow="black 0 0 12px">
+        <row align-items="center" justify-content="space-between">
+          <text padding-left="12px">标题</text>
+          <button>111</button>
+          <row>
+            <button>222</button>
+            <button id="button" :content="i" @click="(e)=>{
+              i++;
+              build(e.target);
+            }"></button>
+          </row>
         </row>
       </box>
     </column>
