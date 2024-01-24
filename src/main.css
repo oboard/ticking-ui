@@ -23,6 +23,30 @@
     align-items: center;
 }
 
+.ticking-ui flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticking-ui flex[direction='vertical'] {
+    flex-direction: column;
+}
+.ticking-ui flex[direction='vertical'] {
+    flex-direction: column;
+}
+.ticking-ui flex[direction='horizontal'] {
+    flex-direction: row;
+}
+
+.ticking-ui column>* {
+    width: 100%;
+}
+
+.ticking-ui row>* {
+    height: 100%;
+}
+
 .ticking-ui center {
     display: flex;
     justify-content: center;
@@ -52,10 +76,23 @@
     display: block;
 }
 
-.ticking-ui color,stack,safe {
+.ticking-ui color,safe {
     width: 100%;
     height: 100%;
 }
+
+.ticking-ui *:only-child {
+    width: 100%;
+    height: 100%;
+
+}
+
+.ticking-ui *:only-child {
+    width: 100%;
+    height: 100%;
+
+}
+
 
 .ticking-ui arcclipper {
     border-radius: 50%;
