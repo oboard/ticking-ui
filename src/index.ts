@@ -7,8 +7,8 @@ export class ZenLiter {
   constructor(pages: Record<string, string>) {
     this.pages = pages;
     const { debug } = this;
-    // 监听路由变化
-    window.addEventListener("load", async function (_) {
+
+    const onUrlChange = () => {
       // 获取@/pages目录结构
       let path = window.location.pathname;
 
@@ -29,6 +29,15 @@ export class ZenLiter {
         zenliter.innerHTML = currentPage;
         build(zenliter);
       }
+    };
+
+    // 监听路由变化
+    window.addEventListener("load", async function (_) {
+      onUrlChange();
+    });
+
+    window.addEventListener("popstate", function (_) {
+      onUrlChange();
     });
   }
 }
@@ -57,6 +66,26 @@ function htmlDecode(value: string) {
     .replace(/&#36;/g, "$")
     .replace(/&#95;/g, "_");
   // 添加更多实体字符的解码规则
+}
+
+export function back() {
+  window.history.back();
+}
+
+export function forward() {
+  window.history.forward();
+}
+
+export function push(url: string) {
+  window.history.pushState({}, "", url);
+}
+
+export function to(url: string) {
+  window.location.href = url;
+}
+
+export function reload() {
+  window.location.reload();
 }
 
 // loop through all elements
