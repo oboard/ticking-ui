@@ -6,6 +6,9 @@
 pnpm i zenlite
 ```
 
+### Counter Example
+[https://github.com/oboard/zenlite-example](https://github.com/oboard/zenlite-example)
+
 ## 编译方式
 
 ```bash
