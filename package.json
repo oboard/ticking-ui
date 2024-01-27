@@ -3,12 +3,13 @@
   "private": false,
   "version": "0.0.2",
   "type": "module",
-  "main": "dist/zenlite.cjs",
-  "module": "dist/zenlite.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && tsc",
     "preview": "vite preview"
   },
   "devDependencies": {

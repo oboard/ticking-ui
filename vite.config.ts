@@ -2,15 +2,15 @@ import { defineConfig } from "vite";
 import ZenLiteVitePlugin from "./src/vite-plugin-zenlite";
 
 export default defineConfig({
-  assetsInclude: ["**/*.zlt"],
+  assetsInclude: ["**/*.css"],
   build: {
     assetsDir: './',
     outDir: "dist",
     target: "esnext",
     lib: {
-      entry: "src/main.ts",
+      entry: "src/index.ts",
       name: "zenlite",
-      fileName: "zenlite",
+      fileName: "index",
       formats: ["es", "cjs"],
     },
   },
