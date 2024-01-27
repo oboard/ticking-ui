@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "zenlite",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "keywords": [
     "zenlite",
     "framework",
@@ -15,8 +15,8 @@
   "packageManager": "pnpm@8.14.1",
   "description": "A lightweight frontend framework based on Vite",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "repository": {
@@ -29,7 +29,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && tsc",
+    "build": "vite build && tsc",
     "preview": "vite preview"
   },
   "devDependencies": {

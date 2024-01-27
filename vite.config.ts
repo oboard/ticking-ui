@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import ZenLiteVitePlugin from "./src/vite-plugin-zenlite";
 
 export default defineConfig({
   assetsInclude: ["**/*.css"],
@@ -14,5 +13,5 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
   },
-  // plugins: [ZenLiteVitePlugin()],
+  plugins: [],
 });

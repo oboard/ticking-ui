@@ -6,7 +6,17 @@ export default function ZenLiteVitePlugin() {
   return {
     name: "zen-lite-vite-plugin",
     buildStart() {
-      // // 读取文件内容
+      // this.emitFile({
+      //   type: "asset",
+      //   fileName: 'index.js',
+      //   source: readFileSync(resolve(process.cwd(), "src/index.js"), "utf-8"),
+      // });
+      // this.emitFile({
+      //   type: "asset",
+      //   fileName: 'index.ts',
+      //   source: readFileSync(resolve(process.cwd(), "src/index.ts"), "utf-8"),
+      // });
+      // // // 读取文件内容
       // const filePath = resolve(process.cwd(), "src/pages/index.zlt");
       // const fileContent = readFileSync(filePath, "utf-8");
 
@@ -62,35 +72,35 @@ export default function ZenLiteVitePlugin() {
       //   });
       // });
       // 要按照目录摆放，不然会出现文件名重复的情况
-      const dirStr = "src/pages";
-      const dirPath = resolve(process.cwd(), dirStr);
-      const files = readdirSync(dirPath, { withFileTypes: true });
-      const filesPath = [];
-      const filesContent = [];
-      const getFiles = (dirStr, files) => {
-        files.forEach((file) => {
-          if (file.isDirectory()) {
-            const dirFiles = readdirSync(dirPath + "/" + file.name, {
-              withFileTypes: true,
-            });
+      // const dirStr = "src/pages";
+      // const dirPath = resolve(process.cwd(), dirStr);
+      // const files = readdirSync(dirPath, { withFileTypes: true });
+      // const filesPath = [];
+      // const filesContent = [];
+      // const getFiles = (dirStr, files) => {
+      //   files.forEach((file) => {
+      //     if (file.isDirectory()) {
+      //       const dirFiles = readdirSync(dirPath + "/" + file.name, {
+      //         withFileTypes: true,
+      //       });
             
-            getFiles(dirStr + "/" + file.name, dirFiles);
-          } else {
-            filesPath.push(dirStr + "/" + file.name);
-            const filePath = resolve(process.cwd(), "src/pages/" + file.name);
-            const fileContent = readFileSync(filePath, "utf-8");
-            filesContent.push(fileContent);
-          }
-        });
-      };
-      getFiles(dirStr, files);
-      filesPath.forEach((path, index) => {
-        this.emitFile({
-          type: "asset",
-          fileName: path,
-          source: filesContent[index],
-        });
-      });
+      //       getFiles(dirStr + "/" + file.name, dirFiles);
+      //     } else {
+      //       filesPath.push(dirStr + "/" + file.name);
+      //       const filePath = resolve(process.cwd(), "src/pages/" + file.name);
+      //       const fileContent = readFileSync(filePath, "utf-8");
+      //       filesContent.push(fileContent);
+      //     }
+      //   });
+      // };
+      // getFiles(dirStr, files);
+      // filesPath.forEach((path, index) => {
+      //   this.emitFile({
+      //     type: "asset",
+      //     fileName: path,
+      //     source: filesContent[index],
+      //   });
+      // });
     },
   };
 }

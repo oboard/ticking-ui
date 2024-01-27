@@ -1,6 +1,6 @@
 // get all elements with class zenlite
 const zenliter = document.getElementById("zenlite");
-
+// @ts-ignore
 const pages = import.meta.glob("./**/*.zlt", { as: "raw", eager: true });
 console.log(pages);
 // 监听路由变化
@@ -18,6 +18,7 @@ window.addEventListener("load", async function (_) {
     path += path.endsWith("/") ? "index" : "/index";
     currentPage = pages[`./pages${path}.zlt`];
   }
+  // @ts-ignore
   if (import.meta.env.DEV) {
     console.debug(`ZenRoute -> ${path}`);
   }
