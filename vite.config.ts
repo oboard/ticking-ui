@@ -11,7 +11,7 @@ export default defineConfig({
       entry: "src/main.ts",
       name: "zenlite",
       fileName: "zenlite",
-      formats: ["es", "umd"],
+      formats: ["es", "cjs"],
     },
   },
   // plugins: [ZenLiteVitePlugin()],

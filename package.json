@@ -3,7 +3,8 @@
   "private": false,
   "version": "0.0.1",
   "type": "module",
-  "exports": "./src/index.ts",
+  "main": "dist/zenlite.cjs",
+  "module": "dist/zenlite.js",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
