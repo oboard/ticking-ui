@@ -1,14 +1,18 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
+import ZenLiteVitePlugin from "./src/vite-plugin-zenlite";
 
 export default defineConfig({
+  assetsInclude: ["**/*.zlt"],
   build: {
-    outDir: 'dist',
-    target: 'esnext',
+    assetsDir: './',
+    outDir: "dist",
+    target: "esnext",
     lib: {
-        entry: 'src/main.ts',
-        name: 'ticking-ui',
-        fileName: 'ticking-ui',
-        formats: ['es', 'umd'],
+      entry: "src/main.ts",
+      name: "zenlite",
+      fileName: "zenlite",
+      formats: ["es", "umd"],
     },
   },
+  // plugins: [ZenLiteVitePlugin()],
 });

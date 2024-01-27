@@ -1,9 +1,9 @@
-# ticking-ui [![npm](https://img.shields.io/npm/v/ticking-ui.svg)](https://www.npmjs.com/package/ticking-ui)
+# zenlite [![npm](https://img.shields.io/npm/v/zenlite.svg)](https://www.npmjs.com/package/zenlite)
 
 ## Getting Started
 
 ```bash
-pnpm i ticking-ui
+pnpm i zenlite
 ```
 
 ## Git 提交规范

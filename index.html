@@ -5,31 +5,12 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ticking UI Example</title>
+  <title>ZenLite Example</title>
   <link rel="stylesheet" href="/src/main.css" />
 </head>
 
 <body style="margin: 0;">
-  <div class="ticking-ui" style="width:100vw;height:100vh;">
-
-
-    <column align-items="center" justify-content="center" width="100vw" height="100vh">
-      <script>
-        let counter = 0;
-      </script>
-      You have pushed the button this many times:
-      <span :content="counter" text-align="center"></span>
-      <button width="48px" @click="(e)=>{
-        counter++;
-        build('span');
-      }">
-        +
-      </button>
-
-    </column>
-
-
-
+  <div id="zenlite">
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
