@@ -1,9 +1,10 @@
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   assetsInclude: ["**/*.css"],
   build: {
-    assetsDir: './',
+    assetsDir: "./",
     outDir: "dist",
     target: "esnext",
     lib: {
@@ -13,5 +14,5 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
   },
-  plugins: [],
+  plugins: [dts()],
 });

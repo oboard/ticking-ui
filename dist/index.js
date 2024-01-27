@@ -1,11 +1,18 @@
-const zenliter = document.getElementById("zenlite"), pages = /* @__PURE__ */ Object.assign({});
-console.log(pages);
-window.addEventListener("load", async function(t) {
-  let a = window.location.pathname;
-  console.log(a), a == "/" && (a = "/index");
-  let r = pages[`./pages${a}.zlt`];
-  r || (a += a.endsWith("/") ? "index" : "/index", r = pages[`./pages${a}.zlt`]), zenliter && (zenliter.innerHTML = r, build(zenliter));
-});
+const zenliter = document.getElementById("zenlite");
+class ZenLiter {
+  pages = {};
+  debug = !1;
+  constructor(r) {
+    this.pages = r;
+    const { debug: i } = this;
+    window.addEventListener("load", async function(l) {
+      let a = window.location.pathname;
+      a == "/" && (a = "/index");
+      let n = r[`./pages${a}.zlt`];
+      n || (a += a.endsWith("/") ? "index" : "/index", n = r[`./pages${a}.zlt`]), i && console.debug(`ZenRoute -> ${a}`), zenliter && (zenliter.innerHTML = n, build(zenliter));
+    });
+  }
+}
 function htmlDecode(t) {
   return String(t).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&#47;/g, "/").replace(/&#40;/g, "(").replace(/&#41;/g, ")").replace(/&#123;/g, "{").replace(/&#125;/g, "}").replace(/&#91;/g, "[").replace(/&#93;/g, "]").replace(/&#35;/g, "#").replace(/&#37;/g, "%").replace(/&#59;/g, ";").replace(/&#43;/g, "+").replace(/&#45;/g, "-").replace(/&#42;/g, "*").replace(/&#64;/g, "@").replace(/&#36;/g, "$").replace(/&#95;/g, "_");
 }
@@ -61,5 +68,6 @@ function build(parent) {
     build(t);
 }
 export {
+  ZenLiter,
   build
 };
