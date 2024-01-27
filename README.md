@@ -6,6 +6,13 @@
 pnpm i zenlite
 ```
 
+## 编译方式
+
+```bash
+pnpm i
+pnpm build
+```
+
 ## Git 提交规范
 
 - `ci`: ci 配置文件和脚本的变动;
