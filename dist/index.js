@@ -1,11 +1,24 @@
-const zenliter = document.getElementById("zenlite");
+const __vite_glob_0_0 = `<column align-items="center" justify-content="center" width="100vw" height="100vh">
+    <script>
+        window.counter = 0;
+    <\/script>
+    You have pushed the button this many times:
+    <span :content="counter" text-align="center"></span>
+    <button width="48px" @click="(e)=>{
+          counter++;
+          build('span');
+        }">
+        +
+    </button>
+</column>`, __vite_glob_0_1 = `<column align-items="center" justify-content="center" width="100vw" height="100vh">
+    SubPage
+</column>`, zenliter = document.getElementById("zenlite"), pages = /* @__PURE__ */ Object.assign({ "./pages/index.zlt": __vite_glob_0_0, "./pages/sub/index.zlt": __vite_glob_0_1 });
+console.log(pages);
 window.addEventListener("load", async function(t) {
-  let a = window.location.pathname;
-  console.log(a), a == "/" && (window.history.replaceState({}, "", "/index"), a = "/index");
-  const r = await fetch(`./pages${a}.zlt`).then(
-    (n) => n.text()
-  );
-  console.log(r), zenliter && (zenliter.innerHTML = r, build(zenliter));
+  let n = window.location.pathname;
+  console.log(n), n == "/" && (n = "/index");
+  let a = pages[`./pages${n}.zlt`];
+  a || (n += n.endsWith("/") ? "index" : "/index", a = pages[`./pages${n}.zlt`]), zenliter && (zenliter.innerHTML = a, build(zenliter));
 });
 function htmlDecode(t) {
   return String(t).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&#47;/g, "/").replace(/&#40;/g, "(").replace(/&#41;/g, ")").replace(/&#123;/g, "{").replace(/&#125;/g, "}").replace(/&#91;/g, "[").replace(/&#93;/g, "]").replace(/&#35;/g, "#").replace(/&#37;/g, "%").replace(/&#59;/g, ";").replace(/&#43;/g, "+").replace(/&#45;/g, "-").replace(/&#42;/g, "*").replace(/&#64;/g, "@").replace(/&#36;/g, "$").replace(/&#95;/g, "_");
@@ -22,7 +35,6 @@ function build(parent) {
     if (attribute.name.startsWith(":")) {
       const name = attribute.name.slice(1);
       let value = "";
-      console.log(`eval(${htmlDecode(attribute.value)})`);
       try {
         function width() {
           return window.innerWidth;

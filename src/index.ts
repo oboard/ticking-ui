@@ -1,37 +1,32 @@
 // get all elements with class zenlite
 const zenliter = document.getElementById("zenlite");
 
+const pages = import.meta.glob("./**/*.zlt", { as: "raw", eager: true });
+console.log(pages);
 // 监听路由变化
 window.addEventListener("load", async function (_) {
   // 获取@/pages目录结构
   let path = window.location.pathname;
   console.log(path);
   if (path == "/") {
-    window.history.replaceState({}, "", "/index");
     path = "/index";
   }
   // 获取当前页面
-  const currentPage = await fetch(`./pages${path}.zlt`).then((res) =>
-    res.text()
-  );
-  console.log(currentPage);
-  if(zenliter) {
+  let currentPage = pages[`./pages${path}.zlt`];
+  if (!currentPage) {
+    // 尝试添加index
+    path += path.endsWith("/") ? "index" : "/index";
+    currentPage = pages[`./pages${path}.zlt`];
+  }
+  if (import.meta.env.DEV) {
+    console.debug(`ZenRoute -> ${path}`);
+  }
+  if (zenliter) {
     zenliter.innerHTML = currentPage;
     build(zenliter);
   }
 });
 
-// // 监听页面加载
-// window.addEventListener("load", function (event) {
-//   console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-//   for (const parent of tickingElements) {
-//     const children = parent.children;
-//     // loop through all children
-//     for (const child of children) {
-//       build(child as HTMLElement);
-//     }
-//   }
-// });
 function htmlDecode(value: string) {
   return String(value)
     .replace(/&amp;/g, "&")
@@ -63,7 +58,7 @@ export function build(parent: HTMLElement | string) {
   if (typeof parent == "string") {
     parent = document.querySelector(parent) as HTMLElement;
   }
-  if(parent.tagName == "SCRIPT") {
+  if (parent.tagName == "SCRIPT") {
     eval(parent.innerHTML);
     return;
   }
@@ -80,7 +75,6 @@ export function build(parent: HTMLElement | string) {
       const name = attribute.name.slice(1);
 
       let value = "";
-      console.log(`eval(${htmlDecode(attribute.value)})`);
       try {
         // @ts-ignore
         function width() {
